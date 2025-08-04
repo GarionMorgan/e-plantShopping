@@ -20,7 +20,7 @@ const CartItem = ({ onContinueShopping }) => {
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
     let total = 0;
-    cart.forEeach((item) => {
+    cart.forEach((item) => {
         const quantity = item.quantity;
         const cost = item.cost;
 
@@ -39,7 +39,7 @@ const CartItem = ({ onContinueShopping }) => {
 
 
   const handleIncrement = (item) => {
-    dispatch(updatedQuantity({
+    dispatch(updateQuantity({
         name: item.name,
         quantity: item.quantity + 1
     }));
@@ -47,7 +47,7 @@ const CartItem = ({ onContinueShopping }) => {
 
   const handleDecrement = (item) => {
    if(item.quantity > 1) {
-    dispatch(updatedQuantity({
+    dispatch(updateQuantity({
         name: item.name,
         quantity: item.quantity - 1
     }));
