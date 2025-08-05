@@ -62,6 +62,56 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
+    const numericCost = parseFloat(item.cost.substring(1));
+    return (item.quantity * numericCost).toFixed(2);
+  };
+
+  const handleCheckoutShopping = (e) => {
+    e.preventDefault();
+    setShowCheckout(true);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCustomerInfo(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handlePlaceOrder = () => {
+    if (!customerInfo.fullName || !customerInfo.email || !customerInfo.address || !customerInfo.phone) {
+      alert('Please fill in all required fields (Name, Email, Address, Phone)!');
+      return;
+  };
+
+  const totalAmount = calculateTotalAmount().toFixed(2);
+  const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
+  
+
+ alert(`🎉 Order Placed Successfully!
+
+Customer: ${customerInfo.fullName}
+Email: ${customerInfo.email}
+Delivery Address: ${customerInfo.address}
+Phone: ${customerInfo.phone}
+
+Order Summary:
+• Total Items: ${itemCount}
+• Total Amount: $${totalAmount}
+
+Your plants will be delivered within 3-5 business days!
+Thank you for choosing Paradise Nursery! 🌱`);
+
+    setShowCheckout(false);
+    setCustomerInfo({
+      fullName: '',
+      email: '',
+      address: '',
+      phone: '',
+      city: '',
+      zipCode: ''
+    });
   };
 
   return (
